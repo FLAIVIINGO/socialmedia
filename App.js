@@ -11,6 +11,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faEnvelope} from '@fortawesome/free-solid-svg-icons';
 import globalStyle from './assets/styles/globalStyle';
 import UserStory from './components/UserStory/UserStory';
+import UserPost from './components/UserPost/UserPost';
 
 const App = () => {
   const userStories = [
@@ -60,11 +61,73 @@ const App = () => {
       profileImage: require('./assets/images/default_profile.png'),
     },
   ];
+  const userPosts = [
+    {
+      firstName: 'Allison',
+      lastName: 'Becker',
+      location: 'Boston, MA',
+      likes: 1201,
+      comments: 24,
+      bookmarks: 55,
+      profileImage: require('./assets/images/default_profile.png'),
+      image: require('./assets/images/default_post.png'),
+      id: 1,
+    },
+    {
+      firstName: 'Jennifer',
+      lastName: 'Wilkinson',
+      location: 'Worchester, MA',
+      likes: 1301,
+      comments: 25,
+      bookmarks: 70,
+      profileImage: require('./assets/images/default_profile.png'),
+      image: require('./assets/images/default_post.png'),
+      id: 2,
+    },
+    {
+      firstName: 'Adam',
+      lastName: 'Spera',
+      location: 'Worchester, MA',
+      likes: 100,
+      comments: 8,
+      bookmarks: 3,
+      profileImage: require('./assets/images/default_profile.png'),
+      image: require('./assets/images/default_post.png'),
+      id: 3,
+    },
+    {
+      firstName: 'Andrew',
+      lastName: 'Babilonia',
+      location: 'Sterling, VA',
+      likes: 140,
+      comments: 45,
+      bookmarks: 66,
+      profileImage: require('./assets/images/default_profile.png'),
+      image: require('./assets/images/default_post.png'),
+      id: 4,
+    },
+    {
+      firstName: 'Nicolas',
+      lastName: 'Namoradze',
+      location: 'Berlin, Germany',
+      likes: 2000,
+      comments: 32,
+      bookmarks: 12,
+      profileImage: require('./assets/images/default_profile.png'),
+      image: require('./assets/images/default_post.png'),
+      id: 5,
+    },
+  ];
 
   const userStoriesPageSize = 4;
   const [userStoriesCurrentPage, setUserStoriesCurrentPage] = useState(1);
   const [userStoriesRenderedData, setUserStoriesRenderedData] = useState([]);
   const [isLoadingUserStories, setIsLoadingUserStories] = useState(false);
+
+  const userPostsPageSize = 4;
+  const [userPostsCurrentPage, setUserPostsCurrentPage] = useState(1);
+  const [userPostsRenderedData, setUserPostsRenderedData] = useState([]);
+  const [isLoadingUserPosts, setIsLoadingUserPosts] = useState(false);
 
   const pagination = (database, currentPage, pageSize) => {
     const startIndex = (currentPage - 1) * pageSize;
@@ -120,6 +183,25 @@ const App = () => {
               firstName={item.firstName}
               profileImage={item.profileImage}
             />
+          )}
+        />
+      </View>
+      <View>
+        <FlatList
+          data={userPosts}
+          renderItem={({item}) => (
+            <View style={globalStyle.userPostContainer}>
+              <UserPost
+                firstName={item.firstName}
+                lastName={item.lastName}
+                image={item.image}
+                likes={item.likes}
+                comments={item.comments}
+                bookmarks={item.bookmarks}
+                profileImage={item.profileImage}
+                location={item.location}
+              />
+            </View>
           )}
         />
       </View>
