@@ -5,7 +5,6 @@ import {
   View,
   Text,
   FlatList,
-  Dimensions,
 } from 'react-native';
 import Title from './components/Title/Title';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
@@ -130,9 +129,6 @@ const App = () => {
   const [userPostsRenderedData, setUserPostsRenderedData] = useState([]);
   const [isLoadingUserPosts, setIsLoadingUserPosts] = useState(false);
 
-  const [screenData, setScreenData] = useState(Dimensions.get('screen'));
-  console.log(screenData);
-
   const pagination = (database, currentPage, pageSize) => {
     const startIndex = (currentPage - 1) * pageSize;
     const endIndex = startIndex + pageSize;
@@ -152,22 +148,10 @@ const App = () => {
     const getInitialDataPosts = pagination(userPosts, 1, userPostsPageSize);
     setUserPostsRenderedData(getInitialDataPosts);
     setIsLoadingUserPosts(false);
-
-    Dimensions.addEventListener('change', result => {
-      setScreenData(result.screen);
-    });
   }, []);
 
   return (
     <SafeAreaView>
-      <View
-        style={{
-          backgroundColor: 'red',
-          width: screenData.width / 2,
-          height: screenData.height / 2,
-        }}>
-        <Text>This box will have half of the screen's width and height</Text>
-      </View>
       <View>
         <FlatList
           ListHeaderComponent={
